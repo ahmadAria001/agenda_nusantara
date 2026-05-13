@@ -1,0 +1,45 @@
+name: todo_app_sertifikasi
+
+description: "Agenda Nusantara - A simple offline to-do list application."
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.11.5
+
+dependencies:
+  flutter:
+    sdk: flutter
+  sqflite: ^2.4.2
+  path_provider: ^2.1.5
+  provider: ^6.1.4
+  intl: ^0.20.2
+  fl_chart: ^1.2.0
+  cryptography: ^2.7.0
+  flutter_local_notifications: ^17.0.0
+  timezone: ^0.9.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.14.2
+  flutter_native_splash: ^2.4.2
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon.png"
+  min_sdk_android: 21
+
+flutter_native_splash:
+  color: "#F9FAFB"
+  image: "assets/icon.png"
+  android_12:
+    image: "assets/icon.png"
+    color: "#F9FAFB"
