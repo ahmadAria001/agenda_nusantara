@@ -17,6 +17,7 @@ class _LoginScreenState extends State<LoginScreen>
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _obscurePassword = true;
+  bool _obscureUname = true;
 
   late AnimationController _animController;
   late Animation<double> _fadeIn;
@@ -57,9 +58,9 @@ class _LoginScreenState extends State<LoginScreen>
     if (!mounted) return;
 
     if (success) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const HomeScreen()),
-      );
+      Navigator.of(
+        context,
+      ).pushReplacement(MaterialPageRoute(builder: (_) => const HomeScreen()));
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -77,7 +78,8 @@ class _LoginScreenState extends State<LoginScreen>
     final colorScheme = theme.colorScheme;
 
     return Scaffold(
-      backgroundColor: colorScheme.surface, // Ensuring surface is explicitly used
+      backgroundColor:
+          colorScheme.surface, // Ensuring surface is explicitly used
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -123,21 +125,43 @@ class _LoginScreenState extends State<LoginScreen>
                           // Username
                           TextFormField(
                             controller: _usernameController,
+                            obscureText: _obscureUname,
                             style: TextStyle(color: colorScheme.onSurface),
                             decoration: InputDecoration(
                               labelText: 'Username',
-                              prefixIcon: Icon(Icons.person_outline_rounded, color: colorScheme.onSurfaceVariant),
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _obscureUname
+                                      ? Icons.visibility_off_rounded
+                                      : Icons.visibility_rounded,
+                                  color: colorScheme.onSurfaceVariant,
+                                ),
+                                onPressed: () => setState(() {
+                                  _obscureUname = !_obscureUname;
+                                }),
+                              ),
+                              prefixIcon: Icon(
+                                Icons.person_outline_rounded,
+                                color: colorScheme.onSurfaceVariant,
+                              ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
-                                borderSide: BorderSide(color: colorScheme.outline),
+                                borderSide: BorderSide(
+                                  color: colorScheme.outline,
+                                ),
                               ),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
-                                borderSide: BorderSide(color: colorScheme.outline),
+                                borderSide: BorderSide(
+                                  color: colorScheme.outline,
+                                ),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
-                                borderSide: BorderSide(color: colorScheme.primary, width: 2),
+                                borderSide: BorderSide(
+                                  color: colorScheme.primary,
+                                  width: 2,
+                                ),
                               ),
                             ),
                             validator: (v) => (v == null || v.trim().isEmpty)
@@ -153,7 +177,10 @@ class _LoginScreenState extends State<LoginScreen>
                             style: TextStyle(color: colorScheme.onSurface),
                             decoration: InputDecoration(
                               labelText: 'Password',
-                              prefixIcon: Icon(Icons.lock_outline_rounded, color: colorScheme.onSurfaceVariant),
+                              prefixIcon: Icon(
+                                Icons.lock_outline_rounded,
+                                color: colorScheme.onSurfaceVariant,
+                              ),
                               suffixIcon: IconButton(
                                 icon: Icon(
                                   _obscurePassword
@@ -167,15 +194,22 @@ class _LoginScreenState extends State<LoginScreen>
                               ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
-                                borderSide: BorderSide(color: colorScheme.outline),
+                                borderSide: BorderSide(
+                                  color: colorScheme.outline,
+                                ),
                               ),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
-                                borderSide: BorderSide(color: colorScheme.outline),
+                                borderSide: BorderSide(
+                                  color: colorScheme.outline,
+                                ),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
-                                borderSide: BorderSide(color: colorScheme.primary, width: 2),
+                                borderSide: BorderSide(
+                                  color: colorScheme.primary,
+                                  width: 2,
+                                ),
                               ),
                             ),
                             validator: (v) => (v == null || v.isEmpty)
@@ -191,7 +225,9 @@ class _LoginScreenState extends State<LoginScreen>
                                 width: double.infinity,
                                 height: 50,
                                 child: ElevatedButton(
-                                  onPressed: auth.isLoading ? null : _handleLogin,
+                                  onPressed: auth.isLoading
+                                      ? null
+                                      : _handleLogin,
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: colorScheme.primary,
                                     foregroundColor: colorScheme.onPrimary,
